@@ -41,8 +41,6 @@ A high-performance 3D N-Body gravitational simulation written in Go using OpenGL
    git clone [https://github.com/yourusername/icosa-gravity.git](https://github.com/yourusername/icosa-gravity.git)
    cd icosa-gravity
 
-
-
 ### Install dependencies:
 
 ```bash
@@ -50,16 +48,3 @@ go mod init icosa-gravity
 go get [github.com/go-gl/gl/v4.1-core/gl](https://github.com/go-gl/gl/v4.1-core/gl)
 go get [github.com/go-gl/glfw/v3.3/glfw](https://github.com/go-gl/glfw/v3.3/glfw)
 go get [github.com/go-gl/mathgl/mgl32](https://github.com/go-gl/mathgl/mgl32)
-
-
-### Run the simulation:
-```bash
-go run main.go
-
-🧠 Technical DetailsThe simulation uses Gravitational Softening to prevent numerical instability (the "slingshot" effect) when cubes overlap.
-The core physics loop is optimized by calculating the distance squared and applying the inverse square root trick directly to avoid expensive division and square root calls.
-Force CalculationThe force is calculated using the following optimization:Go// The Quake Trick in Go
-i = 0x5f3759df - (i >> 1)
-y = *(*float32)(unsafe.Pointer(&y))
-y = y * (1.5 - (x2 * y * y)) 
-This allows the engine to handle the $O(N^2)$ complexity for 2,500 particles (6.25 million interactions per frame) while maintaining high frame rates on modern CPUs.📄 LicenseMIT License - Copyright (c) 2026 Juan Arce
