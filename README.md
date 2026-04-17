@@ -61,14 +61,14 @@ The simulation starts as a spherical distribution and evolves dynamically under 
 ### Setup
 
 ```bash
-git clone https://github.com/yourusername/icosa-gravity.git
-cd icosa-gravity
+git clone https://github.com/arcesoftware/GOPArt.git
+cd GOPArt
 ```
 
 ### Install Dependencies
 
 ```bash
-go mod init icosa-gravity
+go mod init GOPArt
 go get github.com/go-gl/gl/v4.1-core/gl
 go get github.com/go-gl/glfw/v3.3/glfw
 go get github.com/go-gl/mathgl/mgl32
