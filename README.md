@@ -1,50 +1,155 @@
 # icosa-gravity: N-Body Cubic Cluster
 
-A high-performance 3D N-Body gravitational simulation written in Go using OpenGL 4.1. This project simulates thousands of cubic particles influenced by mutual gravitational attraction, optimized with the legendary Fast Inverse Square Root (Quake III) algorithm and multithreaded CPU physics.
+A high-performance 3D N-body gravitational simulation written in Go using OpenGL 4.1.  
+This project simulates thousands of cubic particles interacting via gravity, forming emergent structures like clusters and filaments.
+
+---
 
 ## 🚀 Demo
 
 ![N-Body Cluster Simulation](./Raster.gif)
 
-*The simulation starts as a spherical shell and collapses into complex filaments and clusters based on mutual gravitational pull.*
+The simulation starts as a spherical distribution and evolves dynamically under mutual gravitational attraction.
 
-## 🛠 Features
+---
 
-1. **N-Body Gravity Physics:** Every particle exerts a gravitational force on every other particle ($O(N^2)$ complexity).
-2. **Fast Inverse Square Root:** Uses the `0x5f3759df` bit-level hack for rapid $1/r^3$ force calculations.
-3. **Instanced Rendering:** Efficiently draws thousands of 3D cubes by sending geometry to the GPU once and instancing positions.
-4. **Multithreaded Physics:** Distributes physics calculations across multiple CPU workers using Go's concurrency primitives (`sync.WaitGroup`).
-5. **Post-Processing:** Custom Framebuffer Object (FBO) implementation with a brightness-boosting composite pass.
-6. **3D Camera:** Fully interactive Fly-cam with mouse look and keyboard navigation.
+## 🧠 Features
+
+- **N-Body Gravity (O(N²))**  
+  Every particle interacts with every other particle using Newtonian gravity.
+
+- **Fast Inverse Square Root**  
+  Uses the classic Quake III `0x5f3759df` trick for fast inverse distance calculations.
+
+- **Instanced Rendering (GPU Efficient)**  
+  Thousands of cubes rendered using a single mesh with instancing.
+
+- **Multithreaded Physics Engine**  
+  Physics updates are parallelized using Go routines and `sync.WaitGroup`.
+
+- **Post-Processing Pipeline**  
+  Framebuffer Object (FBO) with a composite pass for brightness enhancement.
+
+- **3D Fly Camera**  
+  Smooth WASD movement + mouse look.
+
+---
 
 ## ⌨️ Controls
 
 | Key | Action |
-| :--- | :--- |
-| **W / S** | Move Forward / Backward |
-| **A / D** | Strafe Left / Right |
-| **Mouse Drag** | Look around (Left Click + Move) |
-| **Scroll** | Increase/Decrease movement speed |
-| **P / O** | Increase/Decrease Cube Size |
-| **R** | Reset Simulation (Re-spawn sphere) |
+|-----|--------|
+| W / S | Move Forward / Backward |
+| A / D | Strafe Left / Right |
+| Mouse (Hold Left Click) | Look Around |
+| Scroll | Adjust Movement Speed |
+| P / O | Increase / Decrease Cube Size |
+| R | Reset Simulation |
 
-## 📦 Installation & Running
+---
+
+## ⚙️ Installation & Running
 
 ### Prerequisites
-* **Go 1.20+**
-* **C Compiler** (GCC or Clang for GLFW/OpenGL bindings)
-* **OpenGL 4.1** compatible hardware
+
+- Go 1.20+
+- C Compiler (GCC or Clang)
+- OpenGL 4.1 compatible GPU
+
+---
 
 ### Setup
-1. Clone the repository:
-   ```bash
-   git clone [https://github.com/yourusername/icosa-gravity.git](https://github.com/yourusername/icosa-gravity.git)
-   cd icosa-gravity
 
-### Install dependencies:
+```bash
+git clone https://github.com/yourusername/icosa-gravity.git
+cd icosa-gravity
+```
+
+### Install Dependencies
 
 ```bash
 go mod init icosa-gravity
-go get [github.com/go-gl/gl/v4.1-core/gl](https://github.com/go-gl/gl/v4.1-core/gl)
-go get [github.com/go-gl/glfw/v3.3/glfw](https://github.com/go-gl/glfw/v3.3/glfw)
-go get [github.com/go-gl/mathgl/mgl32](https://github.com/go-gl/mathgl/mgl32)
+go get github.com/go-gl/gl/v4.1-core/gl
+go get github.com/go-gl/glfw/v3.3/glfw
+go get github.com/go-gl/mathgl/mgl32
+```
+
+---
+
+### Run
+
+```bash
+go run main.go
+```
+
+---
+
+## 🧪 Performance Notes
+
+- Complexity: **O(N²)**
+- Recommended:
+  - ~2,000 particles → smooth
+  - ~5,000 particles → moderate load
+  - 10,000+ → CPU heavy
+
+---
+
+## ⚠️ Known Limitations
+
+- No spatial partitioning (Barnes-Hut not implemented)
+- CPU-bound physics
+- No collision handling
+- Possible instability at very small distances
+
+---
+
+## 🔧 Stability Tips
+
+To avoid simulation explosions, use softening:
+
+```go
+const softening = 25.0
+distSqr := dir.Dot(dir) + softening
+```
+
+---
+
+## 🔥 Roadmap
+
+- [ ] Barnes-Hut Octree (O(N log N))
+- [ ] GPU compute shaders
+- [ ] CUDA acceleration
+- [ ] Volumetric nebula integration
+- [ ] Motion trails / bloom
+- [ ] Galaxy formation simulation
+
+---
+
+## 🧬 Inspiration
+
+- Astrophysics simulations  
+- Real-time rendering engines  
+- Quake III Arena optimization techniques  
+
+---
+
+## 📜 License
+
+MIT License
+
+---
+
+## 👨‍💻 Author
+
+Juan Arce  
+Costa Rica 🇨🇷
+
+---
+
+## ⭐ Support
+
+If you like this project:
+
+- ⭐ Star the repo  
+- 🍴 Fork it  
+- 🧪 Experiment with it  
